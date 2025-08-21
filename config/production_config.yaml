@@ -1,0 +1,177 @@
+# RedSentinel Production Configuration
+# ===================================
+
+# Model Configuration
+model:
+  path: "models/robust_model.joblib"
+  transformers_path: "models/robust_model_transformers.joblib"
+  confidence_threshold: 0.8
+  max_response_time_ms: 100
+
+# Feature Extraction
+features:
+  extractor_type: "robust"
+  max_features: 19
+  categorical_columns:
+    - "model_name"
+    - "model_family"
+    - "technique_category"
+  numeric_columns:
+    - "temperature"
+    - "top_p"
+    - "max_tokens"
+
+# Monitoring & Alerting
+monitoring:
+  enabled: true
+  alert_threshold: 0.8
+  performance_window_hours: 24
+  alert_cooldown_minutes: 30
+  
+  # Performance thresholds
+  thresholds:
+    min_accuracy: 0.75
+    max_false_positive_rate: 0.15
+    max_response_time_ms: 100
+    min_uptime_percentage: 0.95
+  
+  # Alert types and severity
+  alert_types:
+    high_confidence_attack:
+      severity: "high"
+      cooldown_minutes: 15
+    system_error:
+      severity: "high"
+      cooldown_minutes: 5
+    slow_response_time:
+      severity: "medium"
+      cooldown_minutes: 30
+    performance_degradation:
+      severity: "medium"
+      cooldown_minutes: 60
+    low_accuracy:
+      severity: "medium"
+      cooldown_minutes: 60
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_path: "logs/redsentinel_production.log"
+  max_file_size_mb: 100
+  backup_count: 5
+
+# Performance Tracking
+performance:
+  enable_metrics: true
+  export_interval_hours: 24
+  export_path: "exports/performance_data"
+  retention_days: 30
+
+# Security Settings
+security:
+  # Rate limiting
+  max_requests_per_minute: 1000
+  max_requests_per_hour: 10000
+  
+  # Input validation
+  max_prompt_length: 10000
+  max_response_length: 50000
+  
+  # Model protection
+  enable_adversarial_detection: true
+  suspicious_pattern_threshold: 0.9
+
+# Real-World Testing
+testing:
+  enabled: true
+  test_interval_hours: 6
+  
+  # Test patterns
+  test_patterns:
+    - "prompt_injection"
+    - "role_playing"
+    - "context_manipulation"
+    - "multi_step"
+    - "adversarial"
+  
+  # Test models
+  test_models:
+    - name: "test-gpt-5"
+      family: "gpt_like"
+    - name: "test-claude-4"
+      family: "claude_like"
+    - name: "test-gemini-2"
+      family: "gemini_like"
+
+# Deployment Settings
+deployment:
+  environment: "production"
+  version: "1.0.0"
+  
+  # Scaling
+  max_concurrent_requests: 100
+  worker_processes: 4
+  
+  # Health checks
+  health_check_interval_seconds: 30
+  health_check_timeout_seconds: 10
+  
+  # Graceful shutdown
+  shutdown_timeout_seconds: 30
+
+# Data Management
+data:
+  # Attack pattern storage
+  max_stored_patterns: 10000
+  pattern_cleanup_interval_hours: 12
+  
+  # Export settings
+  auto_export: true
+  export_format: "json"
+  compression: true
+  
+  # Backup settings
+  backup_enabled: true
+  backup_interval_hours: 24
+  backup_retention_days: 7
+
+# Integration Settings
+integrations:
+  # Email notifications
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    username: ""
+    password: ""
+    recipients: []
+  
+  # Slack notifications
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: "#security-alerts"
+  
+  # Webhook notifications
+  webhook:
+    enabled: false
+    url: ""
+    headers: {}
+    timeout_seconds: 10
+
+# Maintenance
+maintenance:
+  # Model retraining
+  auto_retrain: false
+  retrain_interval_days: 7
+  retrain_data_threshold: 1000
+  
+  # Performance optimization
+  enable_caching: true
+  cache_size_mb: 100
+  cache_ttl_seconds: 3600
+  
+  # Cleanup tasks
+  cleanup_enabled: true
+  cleanup_interval_hours: 6

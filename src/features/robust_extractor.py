@@ -28,18 +28,20 @@ class RobustFeatureExtractor:
     def prepare_dataset(self, df: pd.DataFrame, target_col: str = 'final_label', is_training: bool = True) -> Tuple[pd.DataFrame, pd.Series]:
         """
         Convert attack logs to ML-ready dataset with robust feature handling.
-        
+
         Args:
             df: Input DataFrame
             target_col: Target column name
             is_training: Whether this is training data (affects fitting)
         """
-        print(f"Preparing robust dataset ({'training' if is_training else 'testing'})...")
+        print(
+            f"Preparing robust dataset ({'training' if is_training else 'testing'})...")
         print(f"Input data shape: {df.shape}")
 
         # Prepare target variable
         if target_col not in df.columns:
-            print(f"Warning: Target column '{target_col}' not found. Using 'success' as target.")
+            print(
+                f"Warning: Target column '{target_col}' not found. Using 'success' as target.")
             y = (df['final_label'] == 'success').astype(int)
         else:
             # Map labels to numeric
@@ -146,8 +148,10 @@ class RobustFeatureExtractor:
         if 'model_family' in df.columns:
             # Use a more robust encoding that can handle unseen families
             unique_families = df['model_family'].unique()
-            family_mapping = {family: i for i, family in enumerate(unique_families)}
-            derived_features['model_family_encoded'] = df['model_family'].map(family_mapping).fillna(-1)
+            family_mapping = {family: i for i,
+                              family in enumerate(unique_families)}
+            derived_features['model_family_encoded'] = df['model_family'].map(
+                family_mapping).fillna(-1)
 
         # 2. Technique complexity (based on category)
         if 'technique_category' in df.columns:
@@ -168,7 +172,8 @@ class RobustFeatureExtractor:
 
         # 3. Parameter ranges (normalized)
         if 'temperature' in df.columns:
-            derived_features['temp_normalized'] = (df['temperature'] - 0.5) / 0.5  # Center around 0.5
+            derived_features['temp_normalized'] = (
+                df['temperature'] - 0.5) / 0.5  # Center around 0.5
         if 'top_p' in df.columns:
             derived_features['top_p_normalized'] = (df['top_p'] - 0.5) / 0.5
 
@@ -191,7 +196,7 @@ class RobustFeatureExtractor:
 
         # Handle missing values
         df_clean = df[cat_cols].fillna('unknown')
-        
+
         cat_features = self.ohe.fit_transform(df_clean)
         cat_feature_names = self.ohe.get_feature_names_out(cat_cols)
 
@@ -204,7 +209,7 @@ class RobustFeatureExtractor:
 
         # Handle missing values
         df_clean = df[cat_cols].fillna('unknown')
-        
+
         # Transform using fitted encoder
         cat_features = self.ohe.transform(df_clean)
         cat_feature_names = self.ohe.get_feature_names_out(cat_cols)
@@ -264,3 +269,30 @@ class RobustFeatureExtractor:
         }
 
         return summary
+    
+    def save_transformers(self, filepath: str):
+        """Save the fitted transformers to disk."""
+        import joblib
+        
+        transformers = {
+            'ohe': self.ohe,
+            'scaler': self.scaler,
+            'categorical_columns': self.categorical_columns,
+            'numeric_columns': self.numeric_columns,
+            'is_fitted': self.is_fitted
+        }
+        
+        joblib.dump(transformers, filepath)
+        print(f"Transformers saved to {filepath}")
+    
+    def load_transformers(self, filepath: str):
+        """Load the fitted transformers from disk."""
+        import joblib
+        
+        transformers = joblib.load(filepath)
+        self.ohe = transformers['ohe']
+        self.scaler = transformers['scaler']
+        self.categorical_columns = transformers['categorical_columns']
+        self.numeric_columns = transformers['numeric_columns']
+        self.is_fitted = transformers['is_fitted']
+        print(f"Transformers loaded from {filepath}")

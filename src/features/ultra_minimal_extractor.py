@@ -33,7 +33,8 @@ class UltraMinimalFeatureExtractor:
 
         # Prepare target variable
         if target_col not in df.columns:
-            print(f"Warning: Target column '{target_col}' not found. Using 'success' as target.")
+            print(
+                f"Warning: Target column '{target_col}' not found. Using 'success' as target.")
             y = (df['final_label'] == 'success').astype(int)
         else:
             # Map labels to numeric
@@ -124,7 +125,8 @@ class UltraMinimalFeatureExtractor:
 
         # 3. Parameter ranges (normalized)
         if 'temperature' in df.columns:
-            derived_features['temp_normalized'] = (df['temperature'] - 0.5) / 0.5  # Center around 0.5
+            derived_features['temp_normalized'] = (
+                df['temperature'] - 0.5) / 0.5  # Center around 0.5
         if 'top_p' in df.columns:
             derived_features['top_p_normalized'] = (df['top_p'] - 0.5) / 0.5
 
@@ -147,7 +149,7 @@ class UltraMinimalFeatureExtractor:
 
         # Handle missing values
         df_clean = df[cat_cols].fillna('unknown')
-        
+
         cat_features = self.ohe.fit_transform(df_clean)
         cat_feature_names = self.ohe.get_feature_names_out(cat_cols)
 

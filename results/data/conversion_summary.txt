@@ -1,0 +1,21 @@
+RedSentinel Data Conversion Summary
+==================================================
+
+Total attacks converted: 10433
+Success rate: 79.56%
+
+Model Distribution:
+  gpt-4o: 4397
+  claude-3-5-sonnet-20241022: 2001
+  claude-3-5-haiku-20241022: 2001
+  gpt-4o-mini: 2001
+  gemini-1.5-flash: 33
+
+Technique Distribution:
+  direct_override: 8711
+  roleplay: 1364
+  multi_step_escalation: 358
+
+Label Distribution:
+  success: 8300
+  failure: 2133

@@ -1,19 +1,39 @@
 # RedSentinel .gitignore
-# Excludes sensitive files, generated data, models, and development artifacts
+# =====================
 
-# =============================================================================
-# PYTHON
-# =============================================================================
+# Training and Generated Data
+training_data/
+converted_data/
+comparison_reports/
+ml_reports/
+real_data_ml_reports/
+exports/
+logs/
 
-# Byte-compiled / optimized / DLL files
+# Models and Transformers
+models/
+*.joblib
+*.pkl
+*.pkl.gz
+
+# Data Files
+*.csv
+*.json
+*.xlsx
+*.parquet
+
+# Reports and Outputs
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.log
+
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
-
-# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -27,166 +47,26 @@ parts/
 sdist/
 var/
 wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
 
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# pipenv
-Pipfile.lock
-
-# PEP 582
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
+# Virtual Environments
 venv/
+env/
 ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# =============================================================================
-# REDSENTINEL SPECIFIC
-# =============================================================================
-
-# Training data and models
-training_data/
-converted_data/
-models/
-ml_reports/
-real_data_ml_reports/
-comparison_reports/
-
-# Generated files (excluding specific result files we want to showcase)
-*.csv
-*.json
-*.pkl
-*.joblib
-*.jpg
-*.jpeg
-*.gif
-*.svg
-
-# Allow specific result files and screenshots
-!results/
-!results/screenshots/
-!results/data/
-!results/*.md
-
-# Attack logs (may contain sensitive information)
-demo_attacks.csv
-demo_attacks.json
-*_attacks.csv
-*_attacks.json
-
-# Data files
-data/
-*.db
-*.sqlite
-*.sqlite3
-
-# Configuration files with sensitive data
-config/secrets.yaml
-config/api_keys.yaml
-*.env
-.env.*
-
-# =============================================================================
-# DEVELOPMENT & IDE
-# =============================================================================
-
-# IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS generated files
+# OS
 .DS_Store
 .DS_Store?
 ._*
@@ -195,66 +75,57 @@ config/api_keys.yaml
 ehthumbs.db
 Thumbs.db
 
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 # Temporary files
 *.tmp
 *.temp
-*.bak
-*.backup
+temp/
+tmp/
 
-# Log files
-*.log
-logs/
+# Archive (keep this for historical files)
+# archive/
 
-# =============================================================================
-# SECURITY & SENSITIVE FILES
-# =============================================================================
+# Results (keep this for documentation)
+# results/
 
-# API keys and secrets
-secrets/
-secrets.yaml
-secrets.yml
-api_keys.yaml
-api_keys.yml
-*.key
-*.pem
-*.p12
-*.pfx
+# Screenshots (keep this for documentation)
+# results/screenshots/
 
-# Database files
-*.db
-*.sqlite
-*.sqlite3
+# Performance results (keep this for documentation)
+# results/*.md
 
-# Backup files
-*.backup
-*.bak
-*.old
+# Demo files (keep core demo)
+# demo.py
 
-# =============================================================================
-# ARCHIVE & DOCUMENTATION
-# =============================================================================
+# Test files (keep core tests)
+# test_installation.py
 
-# Archive directory (contains development files)
-archive/
+# Configuration (keep this for deployment)
+# config/
 
-# Documentation that might contain sensitive info
-docs/internal/
-docs/private/
+# Source code (keep this)
+# src/
 
-# =============================================================================
-# ALLOWED FILES (explicitly include important files)
-# =============================================================================
+# Scripts (keep this)
+# scripts/
 
-# Keep these important files
-!requirements.txt
-!README.md
-!REDSENTINEL_TECHNICAL_OVERVIEW.md
-!config/evaluator_config.yaml
-!src/**/*.py
-!scripts/**/*.py
-!demo.py
-!test_installation.py
+# Documentation (keep this)
+# docs/
 
-# Keep example configs (without sensitive data)
-!config/*.yaml
-!config/*.yml
+# Requirements (keep this)
+# requirements.txt
+
+# README (keep this)
+# README.md
+
+# License (keep this)
+# LICENSE

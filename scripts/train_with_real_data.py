@@ -15,7 +15,7 @@ from pathlib import Path
 # Add src to path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from features import RedTeamFeatureExtractor
+from features.robust_extractor import RobustFeatureExtractor
 from ml import RedTeamMLPipeline
 
 
@@ -47,12 +47,9 @@ def run_full_training():
     print("\n1. FEATURE EXTRACTION")
     print("-" * 30)
 
-    extractor = RedTeamFeatureExtractor(
-        use_embeddings=False,  # Keep it fast for now
-        max_tfidf_features=2000  # Increased for real data
-    )
+    extractor = RobustFeatureExtractor()
 
-    X, y = extractor.prepare_dataset(df)
+    X, y = extractor.prepare_dataset(df, is_training=True)
     print(f"Feature extraction complete!")
     print(f"Feature matrix: {X.shape}")
     print(f"Target distribution: {y.value_counts().to_dict()}")
